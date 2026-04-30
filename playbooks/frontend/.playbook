@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "frontend"
+alias = "ap-fe"
+description = "Frontend engineer: React/Vue/Svelte, accessibility, performance, design systems."

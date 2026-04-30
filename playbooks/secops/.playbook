@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "secops"
+alias = "ap-sec"
+description = "Security operations: threat modeling, code review, vulnerability triage, hardening."

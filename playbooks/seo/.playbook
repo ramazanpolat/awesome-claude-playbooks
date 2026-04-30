@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "seo"
+alias = "ap-seo"
+description = "SEO specialist: on-page audits, structured data, Core Web Vitals, content strategy."

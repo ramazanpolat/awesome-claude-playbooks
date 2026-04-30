@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "data"
+alias = "ap-data"
+description = "Data engineer / analyst: pipelines, warehousing, dbt, SQL analytics."

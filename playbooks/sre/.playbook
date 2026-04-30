@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "sre"
+alias = "ap-sre"
+description = "Site reliability engineer: incident response, observability, on-call, postmortems."

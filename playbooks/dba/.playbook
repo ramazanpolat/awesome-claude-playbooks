@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "dba"
+alias = "ap-dba"
+description = "Database administrator: schema design, query tuning, migrations, backups."

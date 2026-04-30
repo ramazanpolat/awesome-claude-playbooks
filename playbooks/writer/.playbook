@@ -1,0 +1,4 @@
+version = "1.0.0"
+name = "writer"
+alias = "ap-write"
+description = "Technical writer: docs, READMEs, API references, release notes."
