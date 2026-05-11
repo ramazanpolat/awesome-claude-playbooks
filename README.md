@@ -1,144 +1,176 @@
 # awesome-playbooks
 
-A reference **multi-playbook** repository for [`claude-playbook`][spec] — the
-CLI for managing isolated Claude Code instances.
+Ready-to-use role playbooks for [`claude-playbook`](https://github.com/ramazanpolat/claude-playbooks).
 
-This repo is a working example of the layout described in
-[`SPEC-v2.1-draft-3.md`](SPEC-v2.1-draft-3.md): a top-level playbook that
-declares several role-focused child playbooks under `playbooks/`. Use it as
-a template when building your own multi-playbook tree.
+This repo installs as one parent playbook named `awesome` with focused child
+playbooks for common engineering, operations, security, data, SEO, and writing
+work. Each child has its own `CLAUDE.md`, so Claude Code starts with the right
+working style, checklists, and output formats for the job.
 
-## What's inside
+## What's Included
 
-| Playbook          | Alias       | Purpose                                                     |
-| ----------------- | ----------- | ----------------------------------------------------------- |
-| `awesome`         | `ap`        | Umbrella entry point — points users at the right child.     |
-| `awesome/dba`     | `ap-dba`    | Database administration: schemas, queries, migrations.      |
-| `awesome/sre`     | `ap-sre`    | Site reliability: incidents, observability, postmortems.    |
-| `awesome/seo`     | `ap-seo`    | SEO audits, structured data, Core Web Vitals.               |
-| `awesome/secops`  | `ap-sec`    | Defensive security: threat modeling, code review, triage.   |
-| `awesome/frontend`| `ap-fe`     | Frontend engineering: TypeScript, a11y, performance.        |
-| `awesome/backend` | `ap-be`     | Backend engineering: APIs, services, observability.         |
-| `awesome/data`    | `ap-data`   | Data engineering: warehouse modeling, dbt, SQL.             |
-| `awesome/writer`  | `ap-write`  | Technical writing: docs, READMEs, release notes.            |
-
-Each child has its own `CLAUDE.md` with role-specific defaults and a
-companion `.playbook` so it can also be cherry-pick installed on its own.
+| Playbook | Alias | Use it for |
+| --- | --- | --- |
+| `awesome` | `ap` | Router/overview. Helps pick the right child playbook. |
+| `awesome/dba` | `ap-dba` | SQL review, schema design, indexes, migrations, backups, database incidents. |
+| `awesome/sre` | `ap-sre` | Incident response, SLOs, observability, Kubernetes/cloud operations, postmortems. |
+| `awesome/secops` | `ap-sec` | Defensive security review, threat models, vulnerability triage, hardening. |
+| `awesome/frontend` | `ap-fe` | UI implementation, React/Vue/Svelte, accessibility, frontend performance. |
+| `awesome/backend` | `ap-be` | API design, services, auth, queues, reliability, backend reviews. |
+| `awesome/data` | `ap-data` | SQL analytics, dbt models, pipelines, warehouse design, data quality. |
+| `awesome/seo` | `ap-seo` | Technical SEO audits, schema.org JSON-LD, content briefs, Core Web Vitals. |
+| `awesome/writer` | `ap-write` | READMEs, API docs, runbooks, release notes, docs rewrites. |
 
 ## Install
 
-### Tree install (recommended)
-
-Install the whole repo and all of its children at once:
+Install the full bundle:
 
 ```bash
-claude-playbook install https://github.com/<owner>/awesome-playbooks
+claude-playbook install https://github.com/ramazanpolat/awesome-playbooks --alias-all
 ```
 
-That gives you the umbrella alias `ap`. To also create per-child aliases
-(`ap-dba`, `ap-sre`, …) in your shell config:
+That creates the parent alias `ap` plus child aliases such as `ap-dba`,
+`ap-sre`, and `ap-fe`.
+
+Install only one child:
 
 ```bash
-claude-playbook install https://github.com/<owner>/awesome-playbooks --alias-all
+claude-playbook install https://github.com/ramazanpolat/awesome-playbooks/tree/main/playbooks/dba
 ```
 
-### Cherry-pick a single child
-
-If you only want one role's playbook, install it standalone:
+Install from a local clone:
 
 ```bash
-claude-playbook install https://github.com/<owner>/awesome-playbooks/tree/main/playbooks/dba
+git clone https://github.com/ramazanpolat/awesome-playbooks.git
+claude-playbook install ./awesome-playbooks --alias-all
 ```
 
-This installs as a flat top-level playbook named `dba` with alias `ap-dba`.
-
-### Local install
-
-If you've cloned the repo:
-
-```bash
-claude-playbook install ~/DEV/awesome-playbooks --alias-all
-```
-
-## Usage
-
-After install, launch any playbook by its alias:
-
-```bash
-ap          # the umbrella
-ap-dba      # the DBA child
-ap-sre      # the SRE child
-# …etc
-```
-
-Or via the long form:
-
-```bash
-claude-playbook run awesome
-claude-playbook run awesome/dba
-```
-
-## Layout
-
-```
-.
-├── .playbook                    ← root manifest, declares [[children]]
-├── CLAUDE.md                    ← instructions for the umbrella playbook
-├── README.md                    ← this file
-├── SPEC-v2.1-draft-3.md         ← the claude-playbook spec
-├── bin/
-│   └── update-playbook.sh       ← invoked by `claude-playbook update awesome`
-└── playbooks/
-    ├── dba/{.playbook,CLAUDE.md}
-    ├── sre/{.playbook,CLAUDE.md}
-    ├── seo/{.playbook,CLAUDE.md}
-    ├── secops/{.playbook,CLAUDE.md}
-    ├── frontend/{.playbook,CLAUDE.md}
-    ├── backend/{.playbook,CLAUDE.md}
-    ├── data/{.playbook,CLAUDE.md}
-    └── writer/{.playbook,CLAUDE.md}
-```
-
-The root `.playbook` is the source of truth for which children exist —
-filesystem walking is intentionally not used for child discovery (see
-the spec, "Playbook discovery").
-
-## Updating
-
-Once installed, the included `bin/update-playbook.sh` lets you pull the
-latest version with:
+Update later:
 
 ```bash
 claude-playbook update awesome
 ```
 
-It runs `git pull --ff-only` against the install directory.
+## Use
 
-## Forking this repo
+Launch by alias:
 
-This is a **demonstration** template. The CLAUDE.md content for each child
-is intentionally lightweight — fork it, replace the role guidance with your
-own house rules, and publish your own multi-playbook tree.
+```bash
+ap          # overview/router
+ap-dba      # database work
+ap-sre      # reliability and incidents
+ap-sec      # defensive security
+ap-fe       # frontend
+ap-be       # backend
+ap-data     # data engineering / analytics
+ap-seo      # SEO
+ap-write    # technical writing
+```
 
-To add a new child playbook:
+Or use the long form:
 
-1. Create the directory under `playbooks/<name>/`.
-2. Add a `CLAUDE.md` (and optionally a `.playbook` so the child can be
-   cherry-pick installed).
-3. Add a `[[children]]` entry in the root `.playbook`:
-   ```toml
-   [[children]]
-   name = "<name>"
-   path = "playbooks/<name>"
-   alias = "ap-<name>"
-   description = "<one-liner>"
-   ```
+```bash
+claude-playbook run awesome/frontend
+claude-playbook run awesome/secops
+```
 
-That's it. There is no registry, no index file, and no install step —
-the root `.playbook` is the only source of truth.
+## Good First Prompts
+
+DBA:
+
+```text
+Review this PostgreSQL query for production performance. Ask for anything you need before recommending indexes.
+```
+
+SRE:
+
+```text
+We have elevated 5xx on checkout. Act as incident commander and give the next 10 minutes of triage.
+```
+
+SecOps:
+
+```text
+Threat-model this new password reset flow. Focus on abuse cases and concrete controls.
+```
+
+Frontend:
+
+```text
+Review this component for accessibility, state management, and unnecessary client-side JavaScript.
+```
+
+Backend:
+
+```text
+Design a production-ready REST API for invoices, including errors, idempotency, pagination, and observability.
+```
+
+Data:
+
+```text
+Review this dbt model and propose tests, documentation, and grain fixes.
+```
+
+SEO:
+
+```text
+Create a technical SEO audit checklist for this site before a migration.
+```
+
+Writer:
+
+```text
+Rewrite this README so a developer can install, verify, and troubleshoot the tool in under five minutes.
+```
+
+## Layout
+
+```text
+.
+├── .playbook
+├── CLAUDE.md
+├── README.md
+├── bin/
+│   └── update-playbook.sh
+└── playbooks/
+    ├── backend/
+    │   ├── .playbook
+    │   └── CLAUDE.md
+    ├── data/
+    ├── dba/
+    ├── frontend/
+    ├── secops/
+    ├── seo/
+    ├── sre/
+    └── writer/
+```
+
+The root `.playbook` declares every child. Each child also has its own
+`.playbook`, so it can be installed independently with a GitHub `/tree/...`
+URL.
+
+## Customize
+
+Fork this repo and edit the `CLAUDE.md` files to match your team's stack,
+incident process, style guide, and risk tolerance.
+
+To add a child:
+
+1. Create `playbooks/<name>/CLAUDE.md`.
+2. Add `playbooks/<name>/.playbook`.
+3. Add a `[[children]]` entry to the root `.playbook`.
+
+Example:
+
+```toml
+[[children]]
+name = "mobile"
+path = "playbooks/mobile"
+alias = "ap-mobile"
+description = "Mobile engineer: iOS, Android, React Native, release quality."
+```
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
-
-[spec]: SPEC-v2.1-draft-3.md
+MIT - see [LICENSE](LICENSE).
