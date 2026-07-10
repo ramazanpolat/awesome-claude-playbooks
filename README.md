@@ -23,26 +23,27 @@ working style, checklists, and output formats for the job.
 
 ## Install
 
-Install the full bundle:
+Install all role playbooks:
 
 ```bash
-claude-playbook install https://github.com/ramazanpolat/awesome-playbooks --alias-all
+git clone https://github.com/ramazanpolat/awesome-playbooks.git
+cd awesome-playbooks
+./install-all.sh
 ```
 
-That creates the parent alias `ap` plus child aliases such as `ap-dba`,
-`ap-sre`, and `ap-fe`.
+This script will install the router alias `ap` as well as all individual role aliases (`ap-dba`, `ap-sre`, etc.) independently.
 
-Install only one child:
+Install only a specific role playbook:
 
 ```bash
-claude-playbook install https://github.com/ramazanpolat/awesome-playbooks/tree/main/playbooks/dba
+claude-playbook install https://github.com/ramazanpolat/awesome-playbooks --subdir playbooks/dba --name ap-dba --alias ap-dba
 ```
 
 Install from a local clone:
 
 ```bash
 git clone https://github.com/ramazanpolat/awesome-playbooks.git
-claude-playbook install ./awesome-playbooks --alias-all
+claude-playbook install ./awesome-playbooks/playbooks/dba --name ap-dba --alias ap-dba
 ```
 
 Update later:
@@ -146,30 +147,18 @@ Rewrite this README so a developer can install, verify, and troubleshoot the too
     └── writer/
 ```
 
-The root `.playbook` declares every child. Each child also has its own
-`.playbook`, so it can be installed independently with a GitHub `/tree/...`
-URL.
+Each directory acts as an independent, flat playbook with its own `.playbook` manifest. You can install them individually utilizing the `--subdir` parameter.
 
 ## Customize
 
 Fork this repo and edit the `CLAUDE.md` files to match your team's stack,
 incident process, style guide, and risk tolerance.
 
-To add a child:
+To add a new role playbook:
 
 1. Create `playbooks/<name>/CLAUDE.md`.
 2. Add `playbooks/<name>/.playbook`.
-3. Add a `[[children]]` entry to the root `.playbook`.
-
-Example:
-
-```toml
-[[children]]
-name = "mobile"
-path = "playbooks/mobile"
-alias = "ap-mobile"
-description = "Mobile engineer: iOS, Android, React Native, release quality."
-```
+3. (Optional) Update `install-all.sh` to include the new playbook.
 
 ## License
 
