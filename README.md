@@ -2,14 +2,18 @@
 
 Ready-to-use role playbooks for [`claude-playbook`](https://github.com/ramazanpolat/claude-playbooks).
 
-This repo installs as one parent playbook named `awesome` with focused child
-playbooks for common engineering, operations, security, data, SEO, and writing
-work. Each child has its own `CLAUDE.md`, so Claude Code starts with the right
-working style, checklists, and output formats for the job.
+This repository contains an overview/router playbook plus eight independently
+installable role playbooks for engineering, operations, security, data, SEO,
+and writing work.
+
+`claude-playbook` uses a flat model: installing the repository root creates only
+the `awesome` router. Directories under `playbooks/` are ordinary files in that
+installation, not automatically discovered children. Install each role you want
+as its own playbook using a GitHub tree URL or `--subdir`.
 
 ## What's Included
 
-| Playbook | Alias | Use it for |
+| Playbook name | Default alias | Use it for |
 | --- | --- | --- |
 | `awesome` | `ap` | Router/overview. Helps pick the right role playbook. |
 | `dba` | `ap-dba` | SQL review, schema design, indexes, migrations, backups, database incidents. |
@@ -26,29 +30,40 @@ working style, checklists, and output formats for the job.
 Install the router overview playbook:
 
 ```bash
-claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --name awesome --alias ap
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks
 ```
 
-Install individual role playbooks using the `--subdir` parameter:
+Install individual roles directly. Their manifests provide the playbook name
+and default alias, so overrides are unnecessary:
 
 ```bash
-claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --subdir playbooks/dba --name ap-dba --alias ap-dba
-claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --subdir playbooks/sre --name ap-sre --alias ap-sre
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks/tree/main/playbooks/dba
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks/tree/main/playbooks/sre
 # Repeat for secops, frontend, backend, data, seo, writer
+```
+
+The equivalent explicit form is:
+
+```bash
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --subdir playbooks/dba
 ```
 
 Install from a local clone:
 
 ```bash
 git clone https://github.com/ramazanpolat/awesome-claude-playbooks.git
-claude-playbook install ./awesome-claude-playbooks/playbooks/dba --name ap-dba --alias ap-dba
+claude-playbook install ./awesome-claude-playbooks/playbooks/dba
 ```
 
 Update later:
 
 ```bash
 claude-playbook update awesome
+claude-playbook update dba
 ```
+
+The router ships a delegated Git update script. Individually installed roles
+use the source metadata recorded by `claude-playbook` for native updates.
 
 ## Use
 
@@ -69,8 +84,8 @@ ap-write    # technical writing
 Or use the full name:
 
 ```bash
-claude-playbook run ap-fe
-claude-playbook run ap-sec
+claude-playbook run frontend
+claude-playbook run secops
 ```
 
 ## Good First Prompts
@@ -145,7 +160,9 @@ Rewrite this README so a developer can install, verify, and troubleshoot the too
     └── writer/
 ```
 
-Each directory acts as an independent, flat playbook with its own `.playbook` manifest. You can install them individually utilizing the `--subdir` parameter.
+The repository root and every `playbooks/<role>` directory are valid independent
+playbook sources with their own manifest and `CLAUDE.md`. Install role directories
+individually; nesting them in this repository does not create runtime hierarchy.
 
 ## Customize
 
@@ -157,6 +174,13 @@ To add a new role playbook:
 1. Create `playbooks/<name>/CLAUDE.md`.
 2. Add `playbooks/<name>/.playbook`.
 
+Validate manifests, names, aliases, required files, and update-script permissions
+with Python 3.11 or newer:
+
+```bash
+python3 tests/validate.py
+```
+
 ## License
 
-MIT - see [LICENSE](LICENSE).
+Apache-2.0 - see [LICENSE](LICENSE).

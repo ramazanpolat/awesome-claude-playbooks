@@ -1,0 +1,21 @@
+.DS_Store
+**/.DS_Store
+
+# Claude Code runtime state created inside an installed playbook.
+.claude.json
+.credentials.json
+backups/
+cache/
+debug/
+downloads/
+file-history/
+history.jsonl
+plugins/
+policy-limits.json
+projects/
+remote-settings.json
+session-env/
+shell-snapshots/
+statsig/
+telemetry/
+todos/

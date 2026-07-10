@@ -1,5 +1,5 @@
 #!/bin/sh
-# Update script for the awesome-playbooks tree.
+# Update script for the awesome-claude-playbooks router.
 #
 # Invoked by `claude-playbook update awesome` with:
 #   - working directory: this top-level playbook's root
