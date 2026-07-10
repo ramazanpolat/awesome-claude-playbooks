@@ -1,4 +1,4 @@
-# awesome-playbooks
+# awesome-claude-playbooks
 
 Ready-to-use role playbooks for [`claude-playbook`](https://github.com/ramazanpolat/claude-playbooks).
 
@@ -11,39 +11,37 @@ working style, checklists, and output formats for the job.
 
 | Playbook | Alias | Use it for |
 | --- | --- | --- |
-| `awesome` | `ap` | Router/overview. Helps pick the right child playbook. |
-| `awesome/dba` | `ap-dba` | SQL review, schema design, indexes, migrations, backups, database incidents. |
-| `awesome/sre` | `ap-sre` | Incident response, SLOs, observability, Kubernetes/cloud operations, postmortems. |
-| `awesome/secops` | `ap-sec` | Defensive security review, threat models, vulnerability triage, hardening. |
-| `awesome/frontend` | `ap-fe` | UI implementation, React/Vue/Svelte, accessibility, frontend performance. |
-| `awesome/backend` | `ap-be` | API design, services, auth, queues, reliability, backend reviews. |
-| `awesome/data` | `ap-data` | SQL analytics, dbt models, pipelines, warehouse design, data quality. |
-| `awesome/seo` | `ap-seo` | Technical SEO audits, schema.org JSON-LD, content briefs, Core Web Vitals. |
-| `awesome/writer` | `ap-write` | READMEs, API docs, runbooks, release notes, docs rewrites. |
+| `awesome` | `ap` | Router/overview. Helps pick the right role playbook. |
+| `dba` | `ap-dba` | SQL review, schema design, indexes, migrations, backups, database incidents. |
+| `sre` | `ap-sre` | Incident response, SLOs, observability, Kubernetes/cloud operations, postmortems. |
+| `secops` | `ap-sec` | Defensive security review, threat models, vulnerability triage, hardening. |
+| `frontend` | `ap-fe` | UI implementation, React/Vue/Svelte, accessibility, frontend performance. |
+| `backend` | `ap-be` | API design, services, auth, queues, reliability, backend reviews. |
+| `data` | `ap-data` | SQL analytics, dbt models, pipelines, warehouse design, data quality. |
+| `seo` | `ap-seo` | Technical SEO audits, schema.org JSON-LD, content briefs, Core Web Vitals. |
+| `writer` | `ap-write` | READMEs, API docs, runbooks, release notes, docs rewrites. |
 
 ## Install
 
-Install all role playbooks:
+Install the router overview playbook:
 
 ```bash
-git clone https://github.com/ramazanpolat/awesome-playbooks.git
-cd awesome-playbooks
-./install-all.sh
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --name awesome --alias ap
 ```
 
-This script will install the router alias `ap` as well as all individual role aliases (`ap-dba`, `ap-sre`, etc.) independently.
-
-Install only a specific role playbook:
+Install individual role playbooks using the `--subdir` parameter:
 
 ```bash
-claude-playbook install https://github.com/ramazanpolat/awesome-playbooks --subdir playbooks/dba --name ap-dba --alias ap-dba
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --subdir playbooks/dba --name ap-dba --alias ap-dba
+claude-playbook install https://github.com/ramazanpolat/awesome-claude-playbooks --subdir playbooks/sre --name ap-sre --alias ap-sre
+# Repeat for secops, frontend, backend, data, seo, writer
 ```
 
 Install from a local clone:
 
 ```bash
-git clone https://github.com/ramazanpolat/awesome-playbooks.git
-claude-playbook install ./awesome-playbooks/playbooks/dba --name ap-dba --alias ap-dba
+git clone https://github.com/ramazanpolat/awesome-claude-playbooks.git
+claude-playbook install ./awesome-claude-playbooks/playbooks/dba --name ap-dba --alias ap-dba
 ```
 
 Update later:
@@ -68,11 +66,11 @@ ap-seo      # SEO
 ap-write    # technical writing
 ```
 
-Or use the long form:
+Or use the full name:
 
 ```bash
-claude-playbook run awesome/frontend
-claude-playbook run awesome/secops
+claude-playbook run ap-fe
+claude-playbook run ap-sec
 ```
 
 ## Good First Prompts
@@ -158,7 +156,6 @@ To add a new role playbook:
 
 1. Create `playbooks/<name>/CLAUDE.md`.
 2. Add `playbooks/<name>/.playbook`.
-3. (Optional) Update `install-all.sh` to include the new playbook.
 
 ## License
 
