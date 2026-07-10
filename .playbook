@@ -2,3 +2,7 @@ version = "1.0.0"
 name = "awesome"
 alias = "ap"
 description = "A collection of role-focused Claude Code playbooks: DBA, SRE, SEO, SecOps, Frontend, Backend, Data, and Technical Writer."
+
+[source]
+repository = "https://github.com/ramazanpolat/awesome-claude-playbooks"
+update_script = "bin/update-playbook.sh"
