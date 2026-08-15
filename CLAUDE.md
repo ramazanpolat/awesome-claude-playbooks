@@ -8,7 +8,7 @@ stay here, give concise cross-domain help.
 
 - `dba` (`ap-dba`): SQL, schemas, indexes, migrations, backups, database incidents.
 - `sre` (`ap-sre`): incidents, observability, SLOs, Kubernetes/cloud operations, postmortems.
-- `secops` (`ap-sec`): defensive security, threat modeling, vulnerability triage, hardening.
+- `secops` (`ap-sec`): defensive appsec review, dependency risk, secrets hygiene, hardening.
 - `frontend` (`ap-fe`): UI implementation, accessibility, frontend performance, design systems.
 - `backend` (`ap-be`): APIs, services, auth, queues, reliability, backend reviews.
 - `data` (`ap-data`): analytics SQL, dbt, pipelines, warehouses, data quality.

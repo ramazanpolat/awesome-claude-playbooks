@@ -57,14 +57,14 @@ Every role installs the same way — swap `dba` for any directory under [`playbo
 
 | Playbook | Alias | Optimized for | Will not |
 | --- | --- | --- | --- |
-| [`dba`](playbooks/dba/CLAUDE.md) | `ap-dba` | Schema design, query tuning, safe migrations, database incidents | Guess an index without a plan; write destructive SQL without a row-count check |
-| [`sre`](playbooks/sre/CLAUDE.md) | `ap-sre` | Incident command, SLOs, observability, Kubernetes, postmortems | Delete things as a first mitigation; page on causes instead of symptoms |
-| [`secops`](playbooks/secops/CLAUDE.md) | `ap-sec` | Threat models, secure code review, vulnerability triage, hardening | Go offensive; call anything "low risk" without stating the exposure |
-| [`frontend`](playbooks/frontend/CLAUDE.md) | `ap-fe` | UI implementation, accessibility, state design, Core Web Vitals | Ship div-buttons; silence type errors it doesn't understand |
-| [`backend`](playbooks/backend/CLAUDE.md) | `ap-be` | API contracts, services, auth, queues, partial-failure design | Invent custom crypto; break an API without a migration path |
-| [`data`](playbooks/data/CLAUDE.md) | `ap-data` | Analytics SQL, dbt models, pipelines, metric definitions | Change a metric silently; run unbounded backfills |
-| [`seo`](playbooks/seo/CLAUDE.md) | `ap-seo` | Technical audits, structured data, migrations, content briefs | Cloaking, link buying, doorway pages; promise rankings |
-| [`writer`](playbooks/writer/CLAUDE.md) | `ap-write` | READMEs, API references, runbooks, release notes | Invent product behavior; call anything "easy" |
+| [`dba`](playbooks/dba/CLAUDE.md) | `ap-dba` | Schema design, query tuning, safe migrations, database incidents | Emit an `UPDATE`/`DELETE` with no `WHERE`; backfill a large table in one unbounded statement |
+| [`sre`](playbooks/sre/CLAUDE.md) | `ap-sre` | Incident command, SLOs, observability, Kubernetes, postmortems | Delete a namespace, PVC, or queue as a mitigation; silence a page to stop an alert firing mid-incident |
+| [`secops`](playbooks/secops/CLAUDE.md) | `ap-sec` | Code audit, dependency and supply-chain risk, secrets hygiene, hardening | Write exploitation tooling for third-party targets; display a secret it finds, even redacted |
+| [`frontend`](playbooks/frontend/CLAUDE.md) | `ap-fe` | UI implementation, accessibility, state and component design, performance budgets | Ship a clickable `div` as a button; suppress a type error without naming the external cause |
+| [`backend`](playbooks/backend/CLAUDE.md) | `ap-be` | API contracts, services, auth, queues, partial-failure design | Swallow an error into a default; break a published contract without a version and migration path |
+| [`data`](playbooks/data/CLAUDE.md) | `ap-data` | Analytics SQL, dbt models, pipelines, data quality, metric definitions | Report a number without its source tables, filters, and date range; drop rows silently |
+| [`seo`](playbooks/seo/CLAUDE.md) | `ap-seo` | Indexation and crawl audits, structured data, Core Web Vitals, content strategy | Cloak, buy links, or build doorway pages; guarantee a ranking or a timeline |
+| [`writer`](playbooks/writer/CLAUDE.md) | `ap-write` | READMEs, tutorials, API references, release notes | Document behavior it has not verified; call a step "simple", "easy", or "just" |
 | [`awesome`](CLAUDE.md) | `ap` | Router: names the right role for a request and hands you the launch command | Duplicate the deep role checklists |
 
 The "Will not" column is not marketing — each is a literal red line written into the playbook's standing instructions. That is what separates a playbook from a persona: it holds its constraints even when the question invites shortcuts.
@@ -77,7 +77,7 @@ Every role has a worked example: a realistic prompt and the abridged session it 
 | --- | --- |
 | [The slow query that wanted an index](examples/dba-slow-query.md) | Refuses to prescribe until it sees `EXPLAIN (ANALYZE, BUFFERS)` — then reads a lossy bitmap heap scan correctly |
 | [Nine percent of checkouts are failing](examples/sre-checkout-incident.md) | Answers with a hypothesis and the next five minutes of checks, not a lecture on observability |
-| [Threat-modeling a password reset flow](examples/secops-password-reset.md) | Finds the user-enumeration timing leak and the sessions that survive the reset |
+| [Reviewing a password reset handler](examples/secops-password-reset.md) | Finds the user-enumeration timing leak and the sessions that survive the reset |
 | [The modal that only worked with a mouse](examples/frontend-modal-review.md) | Catches the div-button, the missing focus trap, and the derived state that drifts |
 | [Designing an invoices API](examples/backend-invoices-api.md) | Idempotency keys, cursor pagination, and a state machine — before you asked |
 | [The revenue model that double-counted](examples/data-dbt-fanout.md) | Spots the join fanout that has inflated revenue since partial payments shipped — and treats the fix as a metric restatement |
