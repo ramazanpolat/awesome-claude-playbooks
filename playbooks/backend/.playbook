@@ -1,4 +1,4 @@
 version = "1.1.0"
 name = "backend"
-alias = "ap-be"
+launcher = "ap-be"
 description = "Backend engineer: API design, services, auth, caching, message queues."

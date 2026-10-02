@@ -44,7 +44,7 @@ def load_manifest(directory: Path, expected_name: str) -> dict:
     except tomllib.TOMLDecodeError as exc:
         fail(f"invalid TOML in {manifest_path.relative_to(ROOT)}: {exc}")
 
-    for field in ("version", "name", "alias", "description"):
+    for field in ("version", "name", "launcher", "description"):
         if not isinstance(manifest.get(field), str) or not manifest[field].strip():
             fail(f"{manifest_path.relative_to(ROOT)} has invalid {field!r}")
     if manifest["name"] != expected_name:
@@ -52,8 +52,8 @@ def load_manifest(directory: Path, expected_name: str) -> dict:
             f"{manifest_path.relative_to(ROOT)} name is {manifest['name']!r}, "
             f"expected {expected_name!r}"
         )
-    if not ALIAS_RE.fullmatch(manifest["alias"]):
-        fail(f"{manifest_path.relative_to(ROOT)} has unsafe alias {manifest['alias']!r}")
+    if not ALIAS_RE.fullmatch(manifest["launcher"]):
+        fail(f"{manifest_path.relative_to(ROOT)} has unsafe launcher {manifest['launcher']!r}")
     return manifest
 
 
@@ -86,16 +86,16 @@ def main() -> None:
         fail("no role playbooks found")
     manifests.extend(load_manifest(path, path.name) for path in role_dirs)
 
-    aliases = [manifest["alias"] for manifest in manifests]
+    aliases = [manifest["launcher"] for manifest in manifests]
     duplicates = sorted(alias for alias in set(aliases) if aliases.count(alias) > 1)
     if duplicates:
-        fail("duplicate aliases: " + ", ".join(duplicates))
+        fail("duplicate launchers: " + ", ".join(duplicates))
 
     updater = ROOT / "bin" / "update-playbook.sh"
     if not updater.is_file() or not updater.stat().st_mode & stat.S_IXUSR:
         fail("bin/update-playbook.sh is missing or not executable")
 
-    print(f"validated {len(manifests)} playbooks and {len(aliases)} unique aliases")
+    print(f"validated {len(manifests)} playbooks and {len(aliases)} unique launchers")
 
 
 if __name__ == "__main__":

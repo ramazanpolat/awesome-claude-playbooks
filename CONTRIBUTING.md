@@ -22,7 +22,7 @@ examples/<name>-<scenario>.md
 ```toml
 version = "1.0.0"
 name = "<name>"          # must equal the directory name
-alias = "ap-<short>"     # unique across the repo; ap- prefix
+launcher = "ap-<short>"  # unique across the repo; ap- prefix
 description = "<Role>: three to six words on what it covers."
 ```
 
