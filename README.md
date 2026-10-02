@@ -53,6 +53,8 @@ ap-dba
 
 Every role installs the same way — swap `dba` for any directory under [`playbooks/`](playbooks/). Installing creates the shell alias automatically; the manifest in each role provides the name and alias.
 
+**Versions.** From v2.0.0 the manifests use cpb v4's `launcher` key. For cpb v3, install from the `v1.0.0` tag, whose manifests use `alias`.
+
 ## The collection
 
 | Playbook | Alias | Optimized for | Will not |
@@ -116,7 +118,7 @@ release-captain/
 ```toml
 version = "1.0.0"
 name = "release-captain"
-alias = "capt"
+launcher = "capt"
 description = "Runs software releases: preflight, go/no-go, rollout, rollback."
 ```
 

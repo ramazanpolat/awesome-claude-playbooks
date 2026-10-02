@@ -1,6 +1,6 @@
 version = "1.0.0"
 name = "awesome"
-alias = "ap"
+launcher = "ap"
 description = "A collection of role-focused Claude Code playbooks: DBA, SRE, SEO, SecOps, Frontend, Backend, Data, and Technical Writer."
 
 [source]
